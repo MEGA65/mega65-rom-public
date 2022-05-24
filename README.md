@@ -1,4 +1,4 @@
-# MEGA65 Close ROM Issue Reporting
+# MEGA65 Closed ROM Issue Reporting
 
 This repository is for reporting issues with mega65-rom (the closed ROM).
 
