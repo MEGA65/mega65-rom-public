@@ -9,3 +9,7 @@ Developers will reference your public issues in the private repository and provi
 Please report your issue with instructions how to reproduce it.
 
 Also mention the ROM version you have the issue with (920XXX) and best also the Core Commit (hex number, can be found in MEGA-TAB matrix monitor) you are using. Last but not least don't forget to state if you are using a hardware (which?) or the emulator.
+
+## Access to Closed ROM sources
+
+As a MEGA65 owner you have acquired a license to the ROM. If you like to have access to the ROM source repository, please contact us on discord.
