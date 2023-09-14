@@ -4,12 +4,17 @@ This change log lists user-facing changes to the MEGA65 ROM between numbered
 versions. See README.md for more information about version numbering and
 releases.
 
-## Current ROM beta: 920385
+## Current ROM beta: 920386
 
-The current ROM beta version is **920385**. This is the version described by
+The current ROM beta version is **920386**. This is the version described by
 the HEAD of the "master" branch of this repo.
 
 Changes since release 0.95 (920377):
+
+* 920386
+  * Change: Restores original screen code-based cursor rendering. A recent ROM beta release updated cursor rendering to use the reverse character attribute instead of the traditional screen code method. Unfortunately, the original VIC-III character attributes are broken when used in combination, so upper palette characters were rendering the cursor incorrectly. There's a core update to fix character attributes, but for backwards compatibility with the C65 prototype ROM this must be requested by setting a register, and the ROM must leave this turned off by default. It's just easier to go back to the screen code cursor.
+  * Fix: Issue with reading from color memory special array C@&(x,y)
+  * Fix: MID$() could not assign to last character in string
 
 * 920385
   * Change: Implements the [MEGA65 cartridge protocol proposal](https://mega65.atlassian.net/wiki/spaces/MEGA65/pages/36962324/MEGA65+Style+Cartridge+Work+in+Progress). This should be considered experimental for now just in case the proposal needs to be revised. The full implementation of auto-boot MEGA65 cartridges requires a newer core.
