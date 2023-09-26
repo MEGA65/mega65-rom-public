@@ -4,17 +4,26 @@ This change log lists user-facing changes to the MEGA65 ROM between numbered
 versions. See README.md for more information about version numbering and
 releases.
 
-## Current ROM beta: 920386
+## Current ROM beta
 
-The current ROM beta version is **920386**. This is the version described by
+The current ROM beta version is **920388**. This is the version described by
 the HEAD of the "master" branch of this repo.
 
 Changes since release 0.95 (920377):
+
+* 920388 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+  * Fix: Keyboard scanner issues with Ctrl and Function keys
+  * Fix: TI$ detecting board revision incorrectly
+
+* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+  * Change: An overhaul of the keyboard scanner to make typing faster and more accurate. This collaborates with a new core feature to avoid dropped keystrokes.
+  * Older ROMs will work with the latest core, using the legacy keyboard scanner. This new ROM requires the latest core. If you run this ROM with an earlier core, typing will not work.
 
 * 920386
   * Change: Restores original screen code-based cursor rendering. A recent ROM beta release updated cursor rendering to use the reverse character attribute instead of the traditional screen code method. Unfortunately, the original VIC-III character attributes are broken when used in combination, so upper palette characters were rendering the cursor incorrectly. There's a core update to fix character attributes, but for backwards compatibility with the C65 prototype ROM this must be requested by setting a register, and the ROM must leave this turned off by default. It's just easier to go back to the screen code cursor.
   * Fix: Issue with reading from color memory special array C@&(x,y)
   * Fix: MID$() could not assign to last character in string
+  * Fix: Incorrect TOD50 setting in NTSC mode
 
 * 920385
   * Change: Implements the [MEGA65 cartridge protocol proposal](https://mega65.atlassian.net/wiki/spaces/MEGA65/pages/36962324/MEGA65+Style+Cartridge+Work+in+Progress). This should be considered experimental for now just in case the proposal needs to be revised. The full implementation of auto-boot MEGA65 cartridges requires a newer core.
