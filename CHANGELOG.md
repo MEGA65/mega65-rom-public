@@ -6,10 +6,13 @@ releases.
 
 ## Current ROM beta
 
-The current ROM beta version is **920388**. This is the version described by
+The current ROM beta version is **920389**. This is the version described by
 the HEAD of the "master" branch of this repo.
 
 Changes since release 0.95 (920377):
+
+* 920389 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+  * Fix: Keyboard scanner was broken in KEY OFF mode, affected MegaAssembler and Coffeebreak Compiler
 
 * 920388 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
   * Fix: Keyboard scanner issues with Ctrl and Function keys
