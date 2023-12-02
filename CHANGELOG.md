@@ -6,19 +6,37 @@ releases.
 
 ## Current ROM beta
 
-The current ROM beta version is **920389**. This is the version described by
+The current ROM beta version is **920390**. This is the version described by
 the HEAD of the "master" branch of this repo.
+
+**Important:** Starting with ROM beta 920387, the ROM depends on a new feature of the MEGA65 core not present in the last stable core (release package v0.95). To test the latest ROM beta versions, you must use a recent [MEGA65 development core](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`. Using a newer ROM with an older core will result in a broken typing experience. Newer cores continue to support older ROMs, and the latest ROM beta is intended to be fully backwards compatible with all existing software. (If it isn't, please [file a bug](https://github.com/MEGA65/mega65-rom-public/issues).)
+
+**For Xemu users:** The most recent Xemu "stable" version does not yet emulate the new core feature needed by ROM beta 920387 and later. In the meantime, please use ROM 920386 or earlier with Xemu, or switch to the "next" version of Xemu. This is a work in progress.
 
 Changes since release 0.95 (920377):
 
-* 920389 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+* 920390
+  * MONITOR (BSMON) improvements:
+    * New: Support for assembling and disassembling Q instructions.
+    * New: Support for assembling and disassembling MAP and EOM instructions.
+    * New: Load/Save/Verify support upper memory addresses.
+    * New: Assemble supports editing previously entered lines.
+    * New: Assemble can assemble to upper memory addresses.
+    * Fix: M with range < 16 bytes shows 16 bytes.
+    * Fix: Register handling in Verify.
+  * Fix: BSAVE handles internal address variables correctly.
+  * Fix: Disk status special variables `DS` and `DS$` retain their values until next disk operation.
+  * Fix: GO64 mode preserves ZP memory `$B0-$B3` during disk operations. This fixes a regression introduced in ROM 920379 that was interfering with some C64 software that assumed these addresses were safe to use.
+  * Many thanks to Wayne (johnwayner) for contributing most of these improvements!
+
+* 920389
   * Fix: Keyboard scanner was broken in KEY OFF mode, affected MegaAssembler and Coffeebreak Compiler
 
-* 920388 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+* 920388
   * Fix: Keyboard scanner issues with Ctrl and Function keys
   * Fix: TI$ detecting board revision incorrectly
 
-* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
   * Change: An overhaul of the keyboard scanner to make typing faster and more accurate. This collaborates with a new core feature to avoid dropped keystrokes.
   * Older ROMs will work with the latest core, using the legacy keyboard scanner. This new ROM requires the latest core. If you run this ROM with an earlier core, typing will not work.
 
@@ -145,3 +163,5 @@ Changes since release 0.9 (920287):
 
 Release 0.9 was the first mastered release package, dated January 2022. It
 included ROM **920287** and core `20220109.11,1586ad4`.
+
+See [this history of the MEGA65 ROM](https://www.m-e-g-a.org/mega65-rom-history/) for change notes from the beginning (January 2021) to ROM 920376 (July 2022), including a few notes on the known Commodore prototype versions.
