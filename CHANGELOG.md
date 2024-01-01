@@ -6,14 +6,31 @@ releases.
 
 ## Current ROM beta
 
-The current ROM beta version is **920390**. This is the version described by
+The current ROM beta version is **920391**. This is the version described by
 the HEAD of the "master" branch of this repo.
 
 **Important:** Starting with ROM beta 920387, the ROM depends on a new feature of the MEGA65 core not present in the last stable core (release package v0.95). To test the latest ROM beta versions, you must use a recent [MEGA65 development core](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`. Using a newer ROM with an older core will result in a broken typing experience. Newer cores continue to support older ROMs, and the latest ROM beta is intended to be fully backwards compatible with all existing software. (If it isn't, please [file a bug](https://github.com/MEGA65/mega65-rom-public/issues).)
 
-**For Xemu users:** The most recent Xemu "stable" version does not yet emulate the new core feature needed by ROM beta 920387 and later. In the meantime, please use ROM 920386 or earlier with Xemu, or switch to the "next" version of Xemu. This is a work in progress.
+**For Xemu users:** To use the latest ROM beta versions with Xemu, you must use the "next" version, which emulates the new core feature. If you'd prefer to stay with Xemu "stable," please use ROM 920386 or earlier for now.
 
 Changes since release 0.95 (920377):
+
+* 920391
+  * DOS and disk command improvements:
+    * Fix: Reset `DS`/`DS$` disk status after initial autoboot.
+    * Fix: DOS correctly writes the final byte (C64 and MEGA65 modes).
+    * Fix: Report correct error for `LOAD` with inappropriate device numbers.
+    * Fix: Repair DOS command channel bugs interfering with U1 and U2 commands.
+    * Fix: Repair disk full detection.
+    * Fix: Repair disk commands that start with a slash.
+    * Improvements to `CHDIR`, `MKDIR`, `DISK`
+    * Improvements to `MONITOR` `@` disk command handling
+  * Fix: `RMOUSE` reports mouse movement more precisely.
+  * Fix: `DOT` was corrupting graphics subsystem internal state that interfered with other commands.
+  * Fix: `TI` timer accurate for NTSC, was previously hard-coded for PAL.
+  * Fix: `SLEEP` edge case caused hanging, noticeable on very long delays.
+  * Fix: ioinit flushes the hardware keyboard buffer, fewer spurious key events after state transitions.
+  * Fix: Improvements to restoring the CPU speed after disk operations.
 
 * 920390
   * MONITOR (BSMON) improvements:
