@@ -6,7 +6,7 @@ releases.
 
 ## Current ROM beta
 
-The current ROM beta version is **920391**. This is the version described by
+The current ROM beta version is **920393**. This is the version described by
 the HEAD of the "master" branch of this repo.
 
 **Important:** Starting with ROM beta 920387, the ROM depends on a new feature of the MEGA65 core not present in the last stable core (release package v0.95). To test the latest ROM beta versions, you must use a recent [MEGA65 development core](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`. Using a newer ROM with an older core will result in a broken typing experience. Newer cores continue to support older ROMs, and the latest ROM beta is intended to be fully backwards compatible with all existing software. (If it isn't, please [file a bug](https://github.com/MEGA65/mega65-rom-public/issues).)
@@ -14,6 +14,12 @@ the HEAD of the "master" branch of this repo.
 **For Xemu users:** To use the latest ROM beta versions with Xemu, you must use the "next" version, which emulates the new core feature. If you'd prefer to stay with Xemu "stable," please use ROM 920386 or earlier for now.
 
 Changes since release 0.95 (920377):
+
+* 920393
+  * Fix: Previous change broke Run/Stop interrupting a BASIC program, now fixed.
+
+* 920392
+  * Fix: BASIC joystick handling now works correctly with the R5 mainboard.
 
 * 920391
   * DOS and disk command improvements:
@@ -53,7 +59,7 @@ Changes since release 0.95 (920377):
   * Fix: Keyboard scanner issues with Ctrl and Function keys
   * Fix: TI$ detecting board revision incorrectly
 
-* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
   * Change: An overhaul of the keyboard scanner to make typing faster and more accurate. This collaborates with a new core feature to avoid dropped keystrokes.
   * Older ROMs will work with the latest core, using the legacy keyboard scanner. This new ROM requires the latest core. If you run this ROM with an earlier core, typing will not work.
 
