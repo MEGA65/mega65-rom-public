@@ -6,7 +6,7 @@ releases.
 
 ## Current ROM beta
 
-The current ROM beta version is **920394**. This is the version described by
+The current ROM beta version is **920395**. This is the version described by
 the HEAD of the "master" branch of this repo.
 
 **Important:** Starting with ROM beta 920387, the ROM depends on a new feature of the MEGA65 core not present in the last stable core (release package v0.95). To test the latest ROM beta versions, you must use a recent [MEGA65 development core](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`. Using a newer ROM with an older core will result in a broken typing experience. Newer cores continue to support older ROMs, and the latest ROM beta is intended to be fully backwards compatible with all existing software. (If it isn't, please [file a bug](https://github.com/MEGA65/mega65-rom-public/issues).)
@@ -14,6 +14,9 @@ the HEAD of the "master" branch of this repo.
 **For Xemu users:** To use the latest ROM beta versions with Xemu, you must use the "next" version, which emulates the new core feature. If you'd prefer to stay with Xemu "stable," please use ROM 920386 or earlier for now.
 
 Changes since release 0.95 (920377):
+
+* 920395
+  * Fix: Run/Stop was not being detected correctly under some circumstances.
 
 * 920394
   * Change: ROM detects whether it is running on a core or Xemu version that does not support the hardware typing queue, and halts boot with a message. This is a short-term convenience for v0.96 release testers and upgraders that might accidentally run the new ROM with an old core/Xemu version, and will be removed after v0.96 is released to reclaim code space. (This is not a long-term solution for forward compatibility testing; see discussion on [this issue in the private repo](https://github.com/MEGA65/mega65-rom/issues/65).)
