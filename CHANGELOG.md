@@ -6,12 +6,17 @@ releases.
 
 ## Current ROM beta
 
-The current ROM beta version is **920395**. This is the version described by
-the HEAD of the "master" branch of this repo.
+We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues.
 
-**Important:** Starting with ROM beta 920387, the ROM depends on a new feature of the MEGA65 core not present in the last stable core (release package v0.95). To test the latest ROM beta versions, you must use a recent [MEGA65 development core](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`. Using a newer ROM with an older core will result in a broken typing experience. Newer cores continue to support older ROMs, and the latest ROM beta is intended to be fully backwards compatible with all existing software. (If it isn't, please [file a bug](https://github.com/MEGA65/mega65-rom-public/issues).)
+The stable release package v0.96 including ROM 920395 was released on February 25, 2024, and there has not yet been a newer beta release. Check back very soon!
 
-**For Xemu users:** To use the latest ROM beta versions with Xemu, you must use the "next" version, which emulates the new core feature. If you'd prefer to stay with Xemu "stable," please use ROM 920386 or earlier for now.
+## Release 0.96: ROM 920395
+
+Release 0.96 is the [current stable release
+package](https://files.mega65.org?id=a0276005-e71c-4b2d-8d17-2aa92e492c50),
+dated February 2024. It includes ROM **920395** and core `20240224.00,3c10488`. This release will be factory installed on MEGA65s shipped in June 2024.
+
+**Important:** The release v0.96 ROM requires the v0.96 core, or the Xemu emulator from January 2024 or later.
 
 Changes since release 0.95 (920377):
 
@@ -129,9 +134,7 @@ Changes since release 0.95 (920377):
 
 ## Release 0.95: ROM 920377
 
-Release 0.95 is the [current stable release
-package](https://files.mega65.org?id=a0276005-e71c-4b2d-8d17-2aa92e492c50),
-dated October 2022. It includes ROM **920377** and core `20221012.18,93d55f0`.
+Release 0.95 was the factory installed release package for MEGA65s shipped in October 2022. It includes ROM **920377** and core `20221012.18,93d55f0`.
 
 Changes since release 0.9 (920287):
 
@@ -190,7 +193,7 @@ Changes since release 0.9 (920287):
 
 ## Release 0.9: ROM 920287
 
-Release 0.9 was the first mastered release package, dated January 2022. It
-included ROM **920287** and core `20220109.11,1586ad4`.
+Release 0.9 was the first release package, dated January 2022. It
+included ROM **920287** and core `20220109.11,1586ad4`. This release was factory installed with MEGA65s that shipped in May 2022.
 
 See [this history of the MEGA65 ROM](https://www.m-e-g-a.org/mega65-rom-history/) for change notes from the beginning (January 2021) to ROM 920376 (July 2022), including a few notes on the known Commodore prototype versions.
