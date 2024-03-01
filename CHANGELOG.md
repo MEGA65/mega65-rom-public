@@ -4,11 +4,41 @@ This change log lists user-facing changes to the MEGA65 ROM between numbered
 versions. See README.md for more information about version numbering and
 releases.
 
-## Current ROM beta
+The latest stable ROM release is **ROM 920395**, in release package v0.96. It was declared stable on February 25, 2024. ROM 920395 requires the v0.96 core, or the Xemu emulator "stable" version released on February 28, 2024 or later.
 
-We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues.
+## The latest ROM beta version
 
-The stable release package v0.96 including ROM 920395 was released on February 25, 2024, and there has not yet been a newer beta release. Check back very soon!
+We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
+
+The latest ROM beta version is **ROM 920396**. Changes since release v0.96 (ROM 920395):
+
+* 920396
+  * New: Binary literals! Use `%` for binary literal values such as `%1010`. New `DECBIN("...")` function converts a binary string of `0` and `1` characters to a number. `STRBIN$(number)` converts a number to a string of `0` and `1` characters.
+  * New: `DIR P` displays a directory listing, pausing for a key press after each screenful (page). `DIR U12,P` for listing files on the SD card is also supported.
+  * New: `TYPE P "filename"` displays a text file, pausing for a key press after each screenful (page).
+  * New: `BLOAD` prints the starting and ending address of the loaded memory region when used in immediate mode (at the `READY` prompt).
+  * New: When `RENUMBER` encounters an Unresolved Reference Error, it also prints the line where the error occurs. (For various reasons, this is not available via the `HELP` command, as with runtime errors.)
+  * New: `RPALETTE()` now accepts a screen number of -1 to refer to the primary system palette (palette 0). It also accepts -2, -3, and -4 for the other three system palettes (palettes 1-3). Support for using the other system palettes from BASIC is planned for a future release.
+  * New: It is now possible to disable "line pushing" in the screen editor, using the escape sequence ESC R (`PRINT CHR$(27)+"R"`). Use ESC N to re-enable. This allows the `PRINT` command to write a character to the right-most column without pushing other lines downward. Note that you must still use ESC M (`PRINT CHR$(27)+"M"`) to disable screen scrolling to `PRINT` a character in the bottom-right corner without scrolling the screen. (Use ESC L to re-enable scrolling.)
+  * New: The BASIC sprite subsystem now recognizes and honors the VIC-IV high resolution sprite registers `sprenv400` (high-res vertical, per sprite) and `sprh640` (high-res horizontal, system-wide). `MOVSPR` accepts 10-bit X and Y coordinates, and will correctly truncate coordinates in low-res modes. We will be adding a mode for matching the sprite resolution to the screen resolution in a future release. It will always be supported for a BASIC program to set these registers directly. We will also add support for a hires mouse pointer in a future release ([tracking issue](https://github.com/MEGA65/mega65-rom-public/issues/126)).
+  * Change: The BASIC ROM has been reorganized to make better use of available space. This introduces a new memory map mode to access a new region of ROM space that was previously unused. The BASIC 65 bitplane graphics subsystem has been relocated to this new region, and future additions may also use it.
+  * Change: The boot state of register $0001 has changed to start with the datasette lines turned off. The datasette port will be supported in the upcoming expansion board.
+  * Change: The v0.96 release ROM included a boot-time error message for when it used with an older core or Xemu version that didn't support the hardware typing queue, to make it easier for upgraders and testers to notice when this happens. This error message has been removed. We may reinstate this for the next release package where the ROM depends on a new feature of the core.
+  * Change: The ROM version string in the ROM data is now null terminated, to support external tools reading a variable-length version string.
+  * Change: The repeat delay for Mega+Shift, No Scroll, and Ctrl-S has been slowed down. This repeat delay was inadvertently sped up with the new typing system in release v0.96, causing accidental repeats.
+  * Fix / Change: The `MOUSE` command was intended by Fred Bowen to accept arguments to adjust the location of the "hot spot" on the mouse pointer sprite, as well as set the pointer's initial screen position. These arugments were incorrectly documented and also were not functioning correctly. The features have been fixed, using the original intended argument order: `MOUSE ON,port,sprite,hotspot-x,hotspot-y,location-x,location-y`
+  * Fix / Change: Using `MOUSE ON` when the mouse is already enabled using a different sprite number will disable the previous sprite. (There is only ever one active mouse pointer.)
+  * Fix: `INFO` and `RSPEED()` detect the CPU speed correctly in an edge case.
+  * Fix: Improved `CLR TI` to reset the `TI` timer variable.
+  * Fix: Edge case where `VAL` reads one too many characters for signed values.
+  * Fix: Edge case where typing a quote in the last position of an inserted space leaves the screen editor in quote mode.
+  * Fix: DOS memory map bug.
+  * Fix: Monitor requires an argument for the `J` command.
+  * Fix: Monitor restores the base page B CPU register when resuming from a `brk`. B register is supported by the `jmp_far` routine (also available as a KERNAL call).
+  * Fix: In v0.96, scroll pausing was interrupting regular typing. This now behaves as before: No Scroll and Ctrl-S do nothing at a blinking cursor.
+  * Fix: The `R` Shift+`U` shortcut for the `RUN` command has been restored. In general, we can't support command abbreviations as an API, but we will make a best effort to not clobber commonly used ones. See [this wiki page](https://mega65.atlassian.net/wiki/spaces/MEGA65/pages/22609921/BASIC+65+Keyword+Abbreviations).
+  * Fix: Run/Stop-Restore sets sprite 0's color to 1 (white) instead of 0 (black), agreeing with the boot state.
+  * Note: Similar to the undocumented `MOUSE` parameters, we noticed that the `VOL` command was documented incorrectly. It accepts two arguments: a volume for the right stereo channel SIDs, and a volume for the left stereo channel SIDs (`VOL 9,9`). The ROM has always implemented it this way. We have elected to change the documentation to match the implementation (with no change to the implementation).
 
 ## Release 0.96: ROM 920395
 
