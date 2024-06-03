@@ -10,7 +10,14 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920396**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920397**. Changes since release v0.96 (ROM 920395):
+
+* 920397
+  * New: `JOY(3)` returns the combined status of joysticks in either port, allowing for a program to easily support a single joystick in either port without calling `JOY()` twice.
+  * Fix: `SPEED` no longer trips VIC-IV "hot registers."
+  * Fix / workaround: `VSYNC` no longer hangs when given a value lower than 6 in NTSC mode. The root cause is [a core bug](https://github.com/MEGA65/mega65-core/issues/362) in the vertical raster position register. This change causes `VSYNC` with a value less than 6 in NTSC mode only to act as if the argument is 6. When the core bug is fixed, this workaround can be removed.
+  * Fix: Extend RTC detection to notice broken amp.
+  * Fix: Restore `GO65`.
 
 * 920396
   * New: Binary literals! Use `%` for binary literal values such as `%1010`. New `DECBIN("...")` function converts a binary string of `0` and `1` characters to a number. `STRBIN$(number)` converts a number to a string of `0` and `1` characters.
