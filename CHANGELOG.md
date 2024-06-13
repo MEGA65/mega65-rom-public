@@ -10,7 +10,20 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920397**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920398**. Changes since release v0.96 (ROM 920395):
+
+* 920398
+  * **Important change:** The KERNAL routine VECTOR was previously only copying the first 32 bytes of the vector table. It now copies all 56 bytes. This is a backwards incompatible change, but we believe existing MEGA65 software is not using this routine. If you believe this change is causing an issue with existing software, please [file a bug](https://github.com/MEGA65/mega65-rom-public/issues).
+  * New: Four new KERNAL routines provide safe access to KERNAL state:
+    * GETIO: Read the current input and output devices
+    * GETLFS: Read file, device, secondary address
+    * KEYLOCKS: Read/set keyboard locks
+    * ADDKEY: Add a character to the soft keyboard input buffer
+  * New: KERNAL routine SETBNK has been reimplemented to support 28-bit addresses for file data and filenames. The API is backwards compatible with the original 24-bit SETBNK. This routine has been disabled for multiple ROM versions. It is now the official way to set file data upper address bits.
+  * New: KERNAL vector KEYSCAN gives a program an opportunity to intercept reading from the keyboard by GETIN, after a key has been read and before it has been interpreted. This replaces C65 vectors that were originally intended for a similar purpose that had to be removed for the new MEGA65 keyboard scanner.
+  * Fix: Some programs, especially those compiled with llvm-mos, were crashing when screen printing scrolled the screen.
+  * Fix: Run/Stop-Restore (and IOINIT) were not resetting the CPU speed correctly. It now resets to 40 MHz consistently.
+  * **Note:** As a general rule, direct access to KERNAL memory by a program is not supported (for now, at least). We are working to document all supported KERNAL integration techniques, and support new tasks through KERNAL calls. If your program has a need to access KERNAL state that is not covered by the KERNAL jump table routines, please [file a feature request](https://github.com/MEGA65/mega65-rom-public/issues).
 
 * 920397
   * New: `JOY(3)` returns the combined status of joysticks in either port, allowing for a program to easily support a single joystick in either port without calling `JOY()` twice.
