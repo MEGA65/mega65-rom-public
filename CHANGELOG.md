@@ -10,7 +10,10 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920398**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is ROM 920399. Changes since release v0.96 (ROM 920395):
+
+* 920399
+  * Temporarily revert VECTOR change. The new table length isn't an issue, it was just implemented incorrectly, interfering with DOS's jump table (not yet public) after Run/Stop + Restore. Until this is fixed, VECTOR will only do the first 32 bytes of the vector table. Callers should continue to expect a 56-byte table.
 
 * 920398
   * **Important change:** The KERNAL routine VECTOR was previously only copying the first 32 bytes of the vector table. It now copies all 56 bytes. This is a backwards incompatible change, but we believe existing MEGA65 software is not using this routine. If you believe this change is causing an issue with existing software, please [file a bug](https://github.com/MEGA65/mega65-rom-public/issues).
