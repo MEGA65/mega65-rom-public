@@ -10,7 +10,12 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is ROM 920399. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920400**. Changes since release v0.96 (ROM 920395):
+
+* 920400
+  * Fix: Restore the VECTOR change. RESTOR and Run/Stop+Restore correctly use a conditional test for the FDC to choose the default serial/DOS vectors. User calls to VECTOR require a 56-byte table, and can customize the serial and editor vectors.
+  * Fix: BLOAD now uses the new SETBNK implementation for both B-argument calls and 28-bit P-argument addresses, resolving a clash between the previous 28-bit implementation and SETBNK.
+  * Fix: BSAVE now uses the B-argument correctly.
 
 * 920399
   * Temporarily revert VECTOR change. The new table length isn't an issue, it was just implemented incorrectly, interfering with DOS's jump table (not yet public) after Run/Stop + Restore. Until this is fixed, VECTOR will only do the first 32 bytes of the vector table. Callers should continue to expect a 56-byte table.
