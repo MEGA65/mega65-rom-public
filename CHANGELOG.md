@@ -12,6 +12,12 @@ We release beta versions of the ROM that are newer than the latest stable releas
 
 The latest ROM beta version is **ROM 920400**. Changes since release v0.96 (ROM 920395):
 
+* 920401
+  * Fix: BLOAD loads correctly to Attic RAM addresses.
+  * Fix: SETBNK setting persists between LOAD calls, was failing in edge cases.
+  * Fix: SETBNK more thoroughly respected by BASIC.
+  * Fix: Corrects BLOAD and BVERIFY address reporting in edge cases.
+
 * 920400
   * Fix: Restore the VECTOR change. RESTOR and Run/Stop+Restore correctly use a conditional test for the FDC to choose the default serial/DOS vectors. User calls to VECTOR require a 56-byte table, and can customize the serial and editor vectors.
   * Fix: BLOAD now uses the new SETBNK implementation for both B-argument calls and 28-bit P-argument addresses, resolving a clash between the previous 28-bit implementation and SETBNK.
