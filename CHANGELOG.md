@@ -10,7 +10,10 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920401**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920402**. Changes since release v0.96 (ROM 920395):
+
+* 920402
+  * Fix: Regression in PLAY and SOUND from 920401.
 
 * 920401
   * Fix: BLOAD loads correctly to Attic RAM addresses.
