@@ -10,7 +10,15 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920403**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920404**. Changes since release v0.96 (ROM 920395):
+
+* 920404
+  * New: `PRINT USING` `%`-style patterns now support left zero padding for positive values in float and integer patters: `%07.2F` `%05D` Left zero padding is cancelled if the value is negative. Right-of-decimal fields and hexadecimal patterns are always left zero padded, as before.
+  * New: `RWINDOW(3)` returns the screen height in rows, regardless of window size, similar to how RWINDOW(2) returns the screen width in columns.
+  * Improvement: `RENUMBER` "crunch" mode that elides leading whitespace before line numbers now has an explicit flag: `RENUMBER C 100` I would like to remove the `RENUMBER100`-style syntax in a future version because this is a destructive action and too easy to trigger accidentally this way. This ROM version supports both syntaxes for now.
+  * Improvement: When in 80x50 mode, ESC+X goes to 80x25, then toggles between 80x25 and 40x25 thereafter. Previously, this did nothing in 80x50 mode. This also applies to the (mostly useless) "SWAPPER" KERNAL call.
+  * Fix: Physical floppy drive resets the drive head properly on next directory read after an error, fixing a regression from 920403. This is believed to be the cause of the oddball floppy drive issues with "D64 support" in ROM 920381, even though that specific case was not reproduceable in 920403. Wayne found a reproduceable case this time around, and we determined that the logic that "D64 support" replaced was doing a sector read that the new version wasn't doing. There is now a dummy sector read in this call path to force a reset. It should only affect the internal floppy drive, and only in this way.
+  * Fix: `DS`/`DS$` disk error variables are now reset correctly for all DOS commands. `DOPEN`, `MERGE`, and `CHDIR U12` were not resetting them when called, causing confusion when a previous disk command failed and the newer command succeeded.
 
 * 920403
   * New: D64 support. This change is identical to the one for ROM 920381, but the oddball problems of ROM 920381 + core 0.95 seem to no longer be present with ROM 920403 and core 0.96. We're excited to open this to wider testing.
