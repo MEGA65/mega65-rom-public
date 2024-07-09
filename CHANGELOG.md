@@ -10,7 +10,14 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920404**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920405**. Changes since release v0.96 (ROM 920395):
+
+* 920405
+  * Change: Support for the `RENUMBER100`-style syntax for "crunch" mode has been removed, in favor of `RENUMBER C 100`. If it is any consolation, `RENUMBERC100` also works. 😅 Hopefully this is different enough to prevent accidental activation.
+  * Fix: `FN X()` argument can now be an array element, was previously reporting Syntax Error.
+  * Fix: `FOR` index variable can now be a byte variable (`B&`). The variable truncates on assignment after `STEP` is added. Take care that the `TO` value is in byte range, to prevent an infinite loop.
+  * Fix: `DLOAD` failure during Edit mode now reports `?OK ERROR`. Previously it was silent. It's not perfect—`DS` still isn't set—but it's an improvement.
+  * Fix: `MOVSPR` no longer overshoots the target position.
 
 * 920404
   * New: `PRINT USING` `%`-style patterns now support left zero padding for positive values in float and integer patters: `%07.2F` `%05D` Left zero padding is cancelled if the value is negative. Right-of-decimal fields and hexadecimal patterns are always left zero padded, as before.
