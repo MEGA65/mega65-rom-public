@@ -10,7 +10,11 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920406**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920407**. Changes since release v0.96 (ROM 920395):
+
+* 920407
+  * Fix: DEC() was mishandling string lengths, sometimes returning wrong values.
+  * Fix: OPEN now clears DS when opening a disk device. This fixes an edge case in Eleven where a failure to load the last-loaded file on start-up would cause subsequent successful loads to report failure.
 
 * 920406
   * Fix: LOAD KERNAL API in "raw" mode now returns a File Not Found error. One caveat to this fix: when loading a PRG-type file in raw mode, it must be at least two bytes long, even though the bytes are interpreted as data. Technically all PRG-type files must be at least two bytes long, so this is fairly complete, but maybe doesn't fully capture the use case in edge cases. (IMO, a file type that must allow sizes of 0 or 1 ought to be SEQ files.) I added this limitation to the docs.
