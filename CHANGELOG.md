@@ -10,7 +10,13 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920407**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920408**. Changes since release v0.96 (ROM 920395):
+
+* 920408
+  * Fix: DECBIN was also mishandling string lengths, similar to DEC.
+  * Fix: KEY macro sizes were not limited correctly, very long macros were corrupting memory.
+  * Fix: Text highlight register was not getting initialized correctly, was causing disk error highlight colors to stick (orange text) under specific circumstances.
+  * Fix: RMOUSE with non-0 sprite was reporting large X coordinates incorrectly. (Thanks Pimau!)
 
 * 920407
   * Fix: DEC() was mishandling string lengths, sometimes returning wrong values.
