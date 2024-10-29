@@ -10,7 +10,18 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920408**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920409**. Changes since release v0.96 (ROM 920395):
+
+* 920409
+  * New: `JOY()` now reports up to five game controller buttons, as defined by the [5-button protocol](https://dansanderson.com/mega65/up-up-down-down/) and as implemented by several modern game controllers and adapters. The C64GS controller reports two buttons; Commotron and several others report three buttons; mouSTer and Unijoysticle report five buttons. This protocol works with both R3 and R6 mainboards.
+    * While technically this changes the range of return values for `JOY()`, it only does so when a multi-button controller is connected to the port and the other buttons are pressed. (It may also report a value when paddle pairs are connected and both paddle buttons are pressed, but paddle games should use `POT()`.) Given how `JOY()` is defined, programs are unlikely to use the return value in a way where this interferes with program behavior. To be extra sure, I did an audit of Filehost: of the 31 BASIC programs that use `JOY()`, only two would respond to the upper buttons, and they would treat them as button 1.
+  * Improvement: `POT()` now uses the MEGA65 paddle registers, instead of the vintage method of reading paddle values through the SID chip. The vintage method requires a slow wait for the SID value to stabilize after updating the SID connection, and `POT()` out of necessity paused execution for the full duration. The new method reads a MEGA65 hardware register and returns immediately.
+    * (The new 5-button game controller support also uses the MEGA65 hardware registers to read buttons 2 and 3 over the paddle lines.)
+  * Fix: TI is no longer reset by `RUN <line>`.
+  * Fix: When in `CURSOR ON` mode, relocating the `CURSOR` no longer leaves stray blinked-on cursor marks. This is a partial solution for a general issue: any printing of cursor movement PETSCII codes can still have this unintended effect. The documentation has been updated to recommend calling `CURSOR OFF` before calling `PRINT`.
+  * Fix: `IMPORT` now reports File Not Found correctly.
+  * Fix: The `USING` directive in `PRINT` can now be preceded by other directives, such as semicolon and comma.
+  * Fix: `JOY(1)` no longer reports a spurious signal when top row keys are pressed.
 
 * 920408
   * Fix: DECBIN was also mishandling string lengths, similar to DEC.
