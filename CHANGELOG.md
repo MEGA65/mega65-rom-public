@@ -10,8 +10,17 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920409**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920410**. Changes since release v0.96 (ROM 920395):
 
+* 920410
+  * **Important change:** The BASIC `INT()` function now always rounds toward negative infinity, also known as [the floor function](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions). This is a change to the behavior when the argument is negative and has a fractional part: `INT(-1.5) = -2`, `INT(-1) = -1`. All versions of Commodore BASIC, and many other BASICs derived from Microsoft BASIC, define `INT()` as "floor," and other parts of BASIC depend on this definition internally. This was inadvertently changed starting at ROM 920177 to mean "round toward zero," breaking dependent behaviors. Restoring this also fixes issues with trigonometric functions.
+  * New: `DIR U12` to list the contents of the SD card now accepts a pattern matching string, similar to using `DIR` with DOS devices. All wildcard characters are supported. For example: `DIR "M*",U12`
+  * Improvement: `MONITOR`'s Disassembly command will display a screenful at a time by default, adjusted for the current screen size. Thanks to jwa1974 for this contribution!
+  * Improvement: Run/Stop + Restore now resets the system palette.
+  * Improvement: `CHAR` now accepts a 28-bit charset address argument. This was previously limited to 20-bit addresses.
+    * This is mostly useful for `CHAR ...,$FF7E000`, which tells `CHAR` to use the custom charset defined by `FONT` and `CHARDEF` statements when drawing text to the graphics screen. Use `$FF7E800` for lowercase.
+  * Fix: The `IMPORT` and `MERGE` commands don't work when run from within a program. These now report an error in this case, instead of corrupting program memory.
+  * Fix: `LOADIFF` and `SAVEIFF` report disk errors correctly, instead of crashing.
 * 920409
   * New: `JOY()` now reports up to five game controller buttons, as defined by the [5-button protocol](https://dansanderson.com/mega65/up-up-down-down/) and as implemented by several modern game controllers and adapters. The C64GS controller reports two buttons; Commotron and several others report three buttons; mouSTer and Unijoysticle report five buttons. This protocol works with both R3 and R6 mainboards.
     * While technically this changes the range of return values for `JOY()`, it only does so when a multi-button controller is connected to the port and the other buttons are pressed. (It may also report a value when paddle pairs are connected and both paddle buttons are pressed, but paddle games should use `POT()`.) Given how `JOY()` is defined, programs are unlikely to use the return value in a way where this interferes with program behavior. To be extra sure, I did an audit of Filehost: of the 31 BASIC programs that use `JOY()`, only two would respond to the upper buttons, and they would treat them as button 1.
