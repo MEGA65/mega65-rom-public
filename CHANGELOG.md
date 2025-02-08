@@ -10,8 +10,13 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920410**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920411**. Changes since release v0.96 (ROM 920395):
 
+* 920411
+  * Fix: The BASIC 65 bitplane graphics subsystem now stores palette data for screens correctly, fixing multiple issues from a regression all the way back in 920255. Symptoms of the issue included incorrect palettes after switching between screens with `SCREEN SET`, and incorrect storage of colors >128 with 8 bitplanes. This went unnoticed because changing the palette of the visible screen sets the VIC palette correctly.
+  * Fix: `CHAR` now consistently sets its default charset address correctly, fixing a regression in 920410. This was most noticeable when using `CHAR` with the default charset in Xemu, which notices and reports an illegal memory access in a pop-up message, in some cases. It may also have caused broken character glyphs on real hardware in those cases.
+  * Fix: `MOUNT` command follows a procedure similar to the Freezer when mounting the internal floppy drive. (Thanks to johnwayner.)
+  * Fix: DOS message 73 is just a welcome message from the VDC and is no longer printed as if it were a disk error. (Thanks to johnwayner.)
 * 920410
   * **Important change:** The BASIC `INT()` function now always rounds toward negative infinity, also known as [the floor function](https://en.wikipedia.org/wiki/Floor_and_ceiling_functions). This is a change to the behavior when the argument is negative and has a fractional part: `INT(-1.5) = -2`, `INT(-1) = -1`. All versions of Commodore BASIC, and many other BASICs derived from Microsoft BASIC, define `INT()` as "floor," and other parts of BASIC depend on this definition internally. This was inadvertently changed starting at ROM 920177 to mean "round toward zero," breaking dependent behaviors. Restoring this also fixes issues with trigonometric functions.
   * New: `DIR U12` to list the contents of the SD card now accepts a pattern matching string, similar to using `DIR` with DOS devices. All wildcard characters are supported. For example: `DIR "M*",U12`
