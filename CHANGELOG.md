@@ -10,8 +10,18 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920411**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920412**. Changes since release v0.96 (ROM 920395):
 
+* 920412
+  * New: `BSAVE` now has a "raw" mode (`,R` flag) that excludes the 16-bit starting address header from the file, symmetric with the `BLOAD` "raw" mode. This header is only appropriate PRG files. Use "raw" mode when writing data to a SEQ file: `BSAVE "MYFILE,S",P($1600) TO P($16FF),R`
+  * New: There is a new KERNAL `SAVEFL` routine that can do "raw" mode saves from machine code programs. It is similar to `SAVE` with a new precondition that accepts a flags argument. See the updated Jump Table appendix in the Compendium.
+  * Fix: `VSYNC` was accidentally accepting a value one past the NTSC range, which hangs. It now rejects the out-of-range value.
+  * Fix: Numbers were printing incorrectly in some cases. This bug was noticed in cases of compounding floating point inaccuracies, e.g. `?.75+.05+.05+.05+.05+.05` should print `" 1"` but was printing `" 0"`.
+  * Fix: `MOUNT` was causing the internal floppy drive head to be reset incorrectly, causing subsequent disk read errors.
+  * Fix: `MOUNT` was mishandling disk image file names of length 5 (`A.D64`).
+  * Fix: `MOUNT` to mount the internal floppy after a D64 disk image was previously mounted caused errors.
+  * Fix: Attempting to fast-format a D64 disk image now returns an error instead of confusing behavior. Fast-formatting a D64 disk image is currently unsupported.
+  * Fix: D64 support now handles an edge case involving a non-standard DOS version byte value.
 * 920411
   * Fix: The BASIC 65 bitplane graphics subsystem now stores palette data for screens correctly, fixing multiple issues from a regression all the way back in 920255. Symptoms of the issue included incorrect palettes after switching between screens with `SCREEN SET`, and incorrect storage of colors >128 with 8 bitplanes. This went unnoticed because changing the palette of the visible screen sets the VIC palette correctly.
   * Fix: `CHAR` now consistently sets its default charset address correctly, fixing a regression in 920410. This was most noticeable when using `CHAR` with the default charset in Xemu, which notices and reports an illegal memory access in a pop-up message, in some cases. It may also have caused broken character glyphs on real hardware in those cases.
