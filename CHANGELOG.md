@@ -10,8 +10,12 @@ The latest stable ROM release is **ROM 920395**, in release package v0.96. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920412**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920413**. Changes since release v0.96 (ROM 920395):
 
+* 920413
+  * New: `AND`, `OR`, `XOR`, and `NOT` operators now accept operands in the range \[-32768, 65535\], so that a program can treat the operands as unsigned 16-bit integers. Previously, only signed 16-bit integers could be operands. The operators still evaluate to a number value in the signed 16-bit integer range: `32768 AND 65535 = -32768`
+  * Fix: A disk operation given a filename or filename pattern longer than the maximum 16 characters truncates the pattern to 16 characters. This resolves an issue where it was possible to create two files with the same name using an overly-long string.
+  * Fix: Improvement to how the `SPEED` command parses its argument.
 * 920412
   * New: `BSAVE` now has a "raw" mode (`,R` flag) that excludes the 16-bit starting address header from the file, symmetric with the `BLOAD` "raw" mode. This header is only appropriate PRG files. Use "raw" mode when writing data to a SEQ file: `BSAVE "MYFILE,S",P($1600) TO P($16FF),R`
   * New: There is a new KERNAL `SAVEFL` routine that can do "raw" mode saves from machine code programs. It is similar to `SAVE` with a new precondition that accepts a flags argument. See the updated Jump Table appendix in the Compendium.
@@ -206,7 +210,7 @@ Changes since release 0.95 (920377):
   * Fix: Keyboard scanner issues with Ctrl and Function keys
   * Fix: TI$ detecting board revision incorrectly
 
-* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
   * Change: An overhaul of the keyboard scanner to make typing faster and more accurate. This collaborates with a new core feature to avoid dropped keystrokes.
   * Older ROMs will work with the latest core, using the legacy keyboard scanner. This new ROM requires the latest core. If you run this ROM with an earlier core, typing will not work.
 
