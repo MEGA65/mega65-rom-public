@@ -1,16 +1,20 @@
 # MEGA65 ROM Change Log
 
-This change log lists user-facing changes to the MEGA65 ROM between numbered
-versions. See README.md for more information about version numbering and
-releases.
+This change log lists user-facing changes to the MEGA65 ROM between numbered versions. See README.md for more information about version numbering and releases.
 
-The latest stable ROM release is **ROM 920395**, in release package v0.96. It was declared stable on February 25, 2024. ROM 920395 requires the v0.96 core, or the Xemu emulator "stable" version released on February 28, 2024 or later.
+The latest stable ROM release is **ROM 920413**, in release package v0.97. It was declared stable on April 27, 2025. ROM 920413 requires the v0.97 core, or the Xemu emulator "stable" version released on April 23, 2025 or later.
 
 ## The latest ROM beta version
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920413**. Changes since release v0.96 (ROM 920395):
+The latest ROM beta version is **ROM 920413**. There have been no changes since release v0.97.
+
+## Release 0.97: ROM 920413
+
+Release 0.97 is the [current stable release package](https://files.mega65.org?id=a0276005-e71c-4b2d-8d17-2aa92e492c50), dated April 2025. It includes ROM **920413** and core `aaf4542`.
+
+Changes since release 0.96 (920395):
 
 * 920413
   * New: `AND`, `OR`, `XOR`, and `NOT` operators now accept operands in the range \[-32768, 65535\], so that a program can treat the operands as unsigned 16-bit integers. Previously, only signed 16-bit integers could be operands. The operators still evaluate to a number value in the signed 16-bit integer range: `32768 AND 65535 = -32768`
@@ -152,9 +156,7 @@ The latest ROM beta version is **ROM 920413**. Changes since release v0.96 (ROM 
 
 ## Release 0.96: ROM 920395
 
-Release 0.96 is the [current stable release
-package](https://files.mega65.org?id=a0276005-e71c-4b2d-8d17-2aa92e492c50),
-dated February 2024. It includes ROM **920395** and core `20240224.00,3c10488`. This release will be factory installed on MEGA65s shipped in June 2024.
+Release 0.96 was the stable release package dated February 2024, factory installed for MEGA65s shipped starting June 2024. It includes ROM **920395** and core `20240224.00,3c10488`.
 
 **Important:** The release v0.96 ROM requires the v0.96 core, or the Xemu emulator from January 2024 or later.
 
