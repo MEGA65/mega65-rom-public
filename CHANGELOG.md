@@ -8,7 +8,23 @@ The latest stable ROM release is **ROM 920413**, in release package v0.97. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920413**. There have been no changes since release v0.97.
+The latest ROM beta version is **ROM 920414**. Changes since release v0.97 (ROM 920413):
+
+* 920414
+  * New: The `HASBIT(addr, n)` function returns true (-1) if bit `n` is set at address `addr`. This is symmetric with the `SETBIT addr,n` and `CLRBIT addr,n` commands.
+  * New: The `RPT$(str, n)` function returns a string consisting of `n` repetitions of the string expression `str`. It throws a String Too Long error if the result would be longer than 255 characters.
+  * New: The `RDISK(n)` function returns properties of the most recent disk action. `RDISK(0)` returns the number of bytes read or written. `RDISK(1)` returns the unit number of the last disk operation (e.g. 8). This is useful if a program wants to load data files from its own disk and needs to know which drive it was loaded from.
+  * New: The `LOG2(n)` returns the logarithm base 2 of a number. BASIC 65 supports `LOG(n)` natural log, `LOG10(n)` log base 10, and `LOG2(n)` log base 2. All other bases can be derived with this identity: log(n, base) = `LOG(n) / LOG(base)`
+  * New: The `SYS` command now has a `SYS TO` variant with three differences: 1) arguments after the address are labeled, not positional; 2) a new "offset" argument makes more addresses accessible, and; 3) a new "interrupts" argument makes it possible to leave BASIC active while calling a machine code subroutine (such as for smooth `PLAY` music playback). These new features are complicated! See the updated User's Guide and Compendium for more information.
+  * New: The `MOUSE` driver now supports the VIC-IV hires sprite modes. You must set the sprite modes before enabling the mouse. For example: `SETBIT $D076,0 : SETBIT $D054,4 : MOUSE ON,1`
+  * New: The `MOUSE` command accepts a port number of "3," which tells it to detect mouse movement on either port. (See also `JOY(3)` from the v0.97 release.) In this mode, `RMOUSE` reports mouse buttons from both ports.
+  * New: The `MOUNT OFF` command sets both virtual disks (default unit numbers 8 and 9) to "no disk."
+  * New: As before, `MOUNT` remembers the filenames of mounted disk images, and attempts to re-mount them after you press the reset button. Previously, there was no official way to cancel this behavior. In this version, `MOUNT` (no args) and `MOUNT OFF` cancel the last-remembered disk image filenames, such that the configured default mount will occur after a reset. **Note:** We have more improvements planned to make mounting optionally "sticky" with both the `MOUNT` command and the Freezer. These behaviors may change slightly in future versions.
+  * Change: `MOUNT` without arguments sets both virtual disk drives to their corresponding physical drives. There is not yet an implementation for the 1565 external drive, so this effectively un-mounts unit 9.
+  * Change: `MOUNT` now uses the Hyppo v1.3 `attach()` function to mount disk images.
+  * Change: `INFO` has been updated cosmetically to avoid confusion about the relationship between "used" and "free" bytes.
+  * Fix: `FIND` had an edge case where it could find `/DATA/`.
+  * Fix: Run/Stop-Restore no longer crashes during long-running graphics commands (e.g. `PAINT`).
 
 ## Release 0.97: ROM 920413
 
@@ -212,7 +228,7 @@ Changes since release 0.95 (920377):
   * Fix: Keyboard scanner issues with Ctrl and Function keys
   * Fix: TI$ detecting board revision incorrectly
 
-* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
   * Change: An overhaul of the keyboard scanner to make typing faster and more accurate. This collaborates with a new core feature to avoid dropped keystrokes.
   * Older ROMs will work with the latest core, using the legacy keyboard scanner. This new ROM requires the latest core. If you run this ROM with an earlier core, typing will not work.
 
