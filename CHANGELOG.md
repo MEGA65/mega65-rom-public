@@ -8,7 +8,22 @@ The latest stable ROM release is **ROM 920413**, in release package v0.97. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920414**. Changes since release v0.97 (ROM 920413):
+The latest ROM beta version is **ROM 920415**. Changes since release v0.97 (ROM 920413):
+
+* 920415
+  * New: High resolution sprite mode. The new `SPRITE SYS` command sets parameters that apply to the sprite system. The first such parameter is `R` to enable (1) or disable (0) high resolution sprite mode. In this mode, all sprites double in resolution (halve in size, without losing pixels) in both dimensions. They also use a different coordinate plane. `SPRITE SYS R1`
+    * Technically, the VIC-IV allows each sprite to set its vertical hires mode individually, while horizontal hires mode applies to all sprites. This mode is intentionally simpler: all sprites are either full hires or full lowres. If you want to use other combinations, set the registers directly.
+    * This works well with the recently introduced hires mouse mode. Be sure to enable hires mode before enabling the mouse. `SPRITE SYS R1 : MOUSE ON,1`
+  * New: `RSPRSYS(0)` returns the current sprite hires mode setting. This function will also be an accessor for future sprite system parameters.
+  * New: The `MEM` system has been upgraded with more intuitive behavior. `MEM`, `SCREEN`, and 80x50 text mode can all reserve 8KB regions of banks 4 and 5, primarily so that BASIC programs can reserve memory for their own use and still use `SCREEN` to allocate graphics screens. Previously, these commands needed to be called in a specific order. Now, `MEM`, `SCREEN`, and the rest of the system maintain their own reservations, and `SCREEN` honors all of them as they are set at the time it is called. (It's a subtle change, but trust me, the previous way was difficult to use.)
+    * 80x50 text mode still forcibly reserves bank 4 region 0.
+    * A future sprite mode intends to do something similar for bank 5 region 0.
+  * New: `FRE(4)` and `FRE(5)` return `MEM`-style bitfields of the 8KB regions reserved in banks 4 and 5 by any of the mechanisms. A BASIC program can use this to dynamically reserve a free region with `MEM`, even after graphics screens have been allocated.
+  * New: `MOUNT` (mount physical drive) and `MOUNT OFF` (mount "no disk") accept an optional `U` parameter to act on only the requested drive. The other drive is unaffected. Omitting the `U` parameter performs the action on both drives. For example: `MOUNT OFF U9`
+  * New: KERNAL call `CURSOR` can enable or disable the screen editor cursor from a machine code program, similar to BASIC's `CURSOR ON` / `CURSOR OFF`.
+  * Improvement: `INFO` reports bank 4 and bank 5 use accurately with the upgraded `MEM` system.
+  * Fix: `RPT$()` was not allocating the return value correctly, preventing it from being stored in a variable or using two `RPT$()` calls in a single expression. This is fixed.
+  * Fix: Activating 80x50 text mode when 80x50 text mode is already active no longer resets the screen memory in a weird way. This re-entry behavior was occurring when ESC 5 was typed or printed while already in 80x50 mode, or when opening then closing a graphics screen while in 80x50 text mode.
 
 * 920414
   * New: The `HASBIT(addr, n)` function returns true (-1) if bit `n` is set at address `addr`. This is symmetric with the `SETBIT addr,n` and `CLRBIT addr,n` commands.
@@ -228,7 +243,7 @@ Changes since release 0.95 (920377):
   * Fix: Keyboard scanner issues with Ctrl and Function keys
   * Fix: TI$ detecting board revision incorrectly
 
-* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
   * Change: An overhaul of the keyboard scanner to make typing faster and more accurate. This collaborates with a new core feature to avoid dropped keystrokes.
   * Older ROMs will work with the latest core, using the legacy keyboard scanner. This new ROM requires the latest core. If you run this ROM with an earlier core, typing will not work.
 
