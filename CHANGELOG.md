@@ -8,7 +8,13 @@ The latest stable ROM release is **ROM 920413**, in release package v0.97. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920415**. Changes since release v0.97 (ROM 920413):
+The latest ROM beta version is **ROM 920416**. Changes since release v0.97 (ROM 920413):
+
+* 920416
+  * **Important change:** The division operator was not rounding the floating point result, causing rounding errors when integerizing the quotient. E.g. `INT(LOG(64)/LOG(2))=5` (should be 6). This now rounds the same way multiplication does. I'm flagging this as "important" because it's changing the result of math operations, so existing programs may exhibit different behavior. If anyone notices a hardship, please [file a new bug](https://github.com/MEGA65/mega65-rom-public/issues).
+  * New: A new KERNAL call for resetting the computer in fancy ways. A program can use this routine to load and run an arbitrary second program by loading it into BASIC memory ($2001) and calling this reset routine with a parameter. This ensures that the new program gets a full warm boot before auto-launching. The routine can reset via KERNAL warm boot or via Hypervisor (similar to pressing the reset button).
+  * Improvement: Switching from 80x50 mode to 80x25 mode deallocates bank 4 region 0 (as switching to 40x25 mode already does).
+  * Fix: The most recent change to the MEM system accidentally disabled deallocation of screen memory on `GRAPHIC CLR`, which caused screen memory to not get deallocated in common cases. This is fixed.
 
 * 920415
   * New: High resolution sprite mode. The new `SPRITE SYS` command sets parameters that apply to the sprite system. The first such parameter is `R` to enable (1) or disable (0) high resolution sprite mode. In this mode, all sprites double in resolution (halve in size, without losing pixels) in both dimensions. They also use a different coordinate plane. `SPRITE SYS R1`
