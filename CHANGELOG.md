@@ -8,7 +8,16 @@ The latest stable ROM release is **ROM 920413**, in release package v0.97. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920416**. Changes since release v0.97 (ROM 920413):
+The latest ROM beta version is **ROM 920417**. Changes since release v0.97 (ROM 920413):
+
+* 920417
+  * New: TYPE now supports the U12 pseudo-device for displaying files from the SD card. Note that it still expects the file to contain PETSCII text, and does not display ASCII files correctly.
+  * New: VERSIONQ KERNAL routine loads the ROM version number into the Q virtual register (A/X/Y/Z).
+  * Improvement: GO64 sets the system palette to C64 colors, instead of leaving them at their current settings. This change may be noticeable to people who make regular use of GO64 mode, because the C64 palette is more nuanced than the MEGA65 default palette. The new C64 palette matches the default palette used by other entry paths into GO64 mode, so it's more consistent.
+  * Improvement: Run/Stop + Restore deallocates 80x50 mode memory.
+  * Fix: SAVEIFF now works correctly when saving an image with bit depth 8.
+  * Fix: TI no longer accidentally relies on a CIA bug in the core.
+  * Fix: Restore number parsing edge cases involving the letter E.
 
 * 920416
   * **Important change:** The division operator was not rounding the floating point result, causing rounding errors when integerizing the quotient. E.g. `INT(LOG(64)/LOG(2))=5` (should be 6). This now rounds the same way multiplication does. I'm flagging this as "important" because it's changing the result of math operations, so existing programs may exhibit different behavior. If anyone notices a hardship, please [file a new bug](https://github.com/MEGA65/mega65-rom-public/issues).
@@ -249,7 +258,7 @@ Changes since release 0.95 (920377):
   * Fix: Keyboard scanner issues with Ctrl and Function keys
   * Fix: TI$ detecting board revision incorrectly
 
-* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
   * Change: An overhaul of the keyboard scanner to make typing faster and more accurate. This collaborates with a new core feature to avoid dropped keystrokes.
   * Older ROMs will work with the latest core, using the legacy keyboard scanner. This new ROM requires the latest core. If you run this ROM with an earlier core, typing will not work.
 
