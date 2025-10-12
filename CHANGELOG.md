@@ -8,7 +8,16 @@ The latest stable ROM release is **ROM 920413**, in release package v0.97. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920417**. Changes since release v0.97 (ROM 920413):
+The latest ROM beta version is **ROM 920418**. Changes since release v0.97 (ROM 920413):
+
+* 920418
+  * New: KERNAL routine KEYLOCKS is now renamed SYSFLAGS.
+  * New: SYSFLAGS lock bit 4 disables the GO64 command, so a BASIC extension can clobber the GO64 KERNAL ROM memory space without causing GO64 command to crash.
+  * Improvement: Reset-like behaviors reset more VIC and SID registers.
+  * Improvement: GO64 sets CPU Z register to 0, fixing an edge case for compilers generating 65C02 code to produce a GO64 program. (65C02 had "Z" opcodes but always treated Z as 0.)
+  * Fix: Can now edit a wrapped line immediately after scrolling it onto the screen with F9/Ctrl-P. (This sounds obscure but I encountered it regularly during the Screenful Compo. The fix is hard won; I've been throwing myself at this sporadically for months. 😅)
+  * Fix: TRAP during INPUT# properly resets I/O channels, so the program can exit cleanly to the Ready prompt (or do other things).
+  * Fix: FRE(-1) now returns the ROM version number again, regressed in 920417.
 
 * 920417
   * New: TYPE now supports the U12 pseudo-device for displaying files from the SD card. Note that it still expects the file to contain PETSCII text, and does not display ASCII files correctly.
