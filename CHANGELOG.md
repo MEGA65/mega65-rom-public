@@ -8,7 +8,15 @@ The latest stable ROM release is **ROM 920413**, in release package v0.97. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920418**. Changes since release v0.97 (ROM 920413):
+The latest ROM beta version is **ROM 920419**. Changes since release v0.97 (ROM 920413):
+
+* 920419
+  * New: SYS TO addr,I1 now supports a much wider range of target addresses, using a different technique to manage MAP during BASIC IRQ calls.
+  * Fix: VIC resets (such as Run/Stop - Restore) preserve PALEMU, aka "CRT emulation."
+  * Fix: Edge case where LOAD "$" was not producing a readable listing under some circumstances.
+  * Fix: LOAD "$" correctly aligns filenames for block sizes 256-999. Thanks Rhialto!
+  * Fix: Disk change (D81<->floppy) was causing read errors under some circumstances. Thanks kibo and Gurce for tracking this down.
+  * Fix: Attempt to fix floating point rounding errors by not discarding smaller precision bits. This appears to resolve two reported issues with floats that we were still tracking. (Alas it did not fix oddities in CIRCLE drawing.)
 
 * 920418
   * New: KERNAL routine KEYLOCKS is now renamed SYSFLAGS.
