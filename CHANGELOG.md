@@ -8,7 +8,10 @@ The latest stable ROM release is **ROM 920413**, in release package v0.97. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920419**. Changes since release v0.97 (ROM 920413):
+The latest ROM beta version is **ROM 920420**. Changes since release v0.97 (ROM 920413):
+
+* 920420
+  * Reverting the fix to the disk change read error issue. The fix was trying to reset the drive head in some cases, but we had multiple reports that it was doing it too often, so we need a narrower solution.
 
 * 920419
   * New: SYS TO addr,I1 now supports a much wider range of target addresses, using a different technique to manage MAP during BASIC IRQ calls.
