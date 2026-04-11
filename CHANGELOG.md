@@ -8,7 +8,12 @@ The latest stable ROM release is **ROM 920413**, in release package v0.97. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920420**. Changes since release v0.97 (ROM 920413):
+The latest ROM beta version is **ROM 920421**. Changes since release v0.97 (ROM 920413):
+
+* 920421
+  * Fix: Correct fix for disk change read error issue. Thanks kibo!
+  * Fix: PALEMU fix was found to interfere with some boot state assumptions in some loaders, esp. Roguecraft DX. This simpler method stashes and restores PALEMU instead of trying to reset everything around it, resolving the noticed issue.
+  * Fix: RPT$() was super broken in a dumb way, corrupting a string heap management variable.
 
 * 920420
   * Reverting the fix to the disk change read error issue. The fix was trying to reset the drive head in some cases, but we had multiple reports that it was doing it too often, so we need a narrower solution.
