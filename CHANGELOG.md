@@ -8,7 +8,11 @@ The latest stable ROM release is **ROM 920413**, in release package v0.97. It wa
 
 We release beta versions of the ROM that are newer than the latest stable release, to solicit help with testing from the community and to provide early previews of new features. Be aware that beta versions may require a newer core, and may have known issues. Please [file bugs](https://github.com/MEGA65/mega65-rom-public/issues) as you find them.
 
-The latest ROM beta version is **ROM 920421**. Changes since release v0.97 (ROM 920413):
+The latest ROM beta version is **ROM 920422**. Changes since release v0.97 (ROM 920413):
+
+* 920422
+  * New: SET FAST MOUSE ON enables a new system setting to double the speed of the BASIC MOUSE. As with other SET settings, add this to your AUTOBOOT.C65 if you want to set this automatically during boot. Note that this only affects the BASIC MOUSE, and does not affect non-BASIC programs that use the mouse (such as GEOS). Thanks to LeFauve for this contribution!
+  * Fix: VIC reset (such as Run/Stop-Restore) preserves the HDMI scanlines setting.
 
 * 920421
   * Fix: Correct fix for disk change read error issue. Thanks kibo!
@@ -283,7 +287,7 @@ Changes since release 0.95 (920377):
   * Fix: Keyboard scanner issues with Ctrl and Function keys
   * Fix: TI$ detecting board revision incorrectly
 
-* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
+* 920387 — REQUIRES [THE LATEST DEVELOPMENT CORE](https://builder.mega65.org/job/mega65-core/job/development/), at least `20230922.14-develo-dea350f`
   * Change: An overhaul of the keyboard scanner to make typing faster and more accurate. This collaborates with a new core feature to avoid dropped keystrokes.
   * Older ROMs will work with the latest core, using the legacy keyboard scanner. This new ROM requires the latest core. If you run this ROM with an earlier core, typing will not work.
 
